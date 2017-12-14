@@ -1,5 +1,5 @@
 # -*- mode:python -*-
-#----- this will work on windows machines but ssl were removed to cope with urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed
+#----- this is an unsuccessfull attempt for the recipe to work on windows machines. ssl were removed to cope with urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed
 
 from __future__ import unicode_literals
 
@@ -174,14 +174,25 @@ class Mediapart(BasicNewsRecipe):
 #        return url
   
 # -- Handle login
-    def get_browser(self):
-        br = BasicNewsRecipe.get_browser(self)
+    def get_browser(self, *args, **kwargs):
+        """
+        We need to pretend to be a recent version of safari for the mac to
+        prevent User-Agent checks Pocket api requires username and password so
+        fail loudly if it's missing from the config.
+        """
+        br = BasicNewsRecipe.get_browser(self,
+                user_agent='Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_6_4; \
+                        en-us) AppleWebKit/533.19.4 (KHTML, like Gecko) \
+                        Version/5.0.3 Safari/533.19.4')
+        # br = BasicNewsRecipe.get_browser(self)
         if self.username is not None and self.password is not None:
-            br.open('https://www.mediapart.fr/login')
+            br.open(self.legacy_login_url)
             br.select_form(nr=1)
             br['name'] = self.username
             br['password'] = self.password
             br.submit()
+        else:
+            self.user_error("This Recipe requires authentication")
         return br
 
     # This is a workaround articles with scribd content that include
