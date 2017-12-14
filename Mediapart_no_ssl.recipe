@@ -17,8 +17,23 @@ from calibre.web.feeds.news import BasicNewsRecipe
 from calibre.web.feeds import feeds_from_index
 from datetime import date,timedelta
 
+#----- this was copied from https://gist.github.com/jchirschy/7717cb067bee7e081070
+from calibre import strftime
+from string import Template
+import json
+import operator
+import tempfile
+import urllib
+import urllib2
+import ssl
+#ssl._create_default_https_context = ssl._create_unverified_context
+
+#----- end of this was copied from https://gist.github.com/jchirschy/7717cb067bee7e081070
+
+
+
 class Mediapart(BasicNewsRecipe):
-    title = 'Mediapart'
+    title = 'Mediapart sans ssl!!!'
     __author__ = 'Daniel Bonnery from a version by Mathieu Godlewski, Louis Gesbert'
     description = 'Global news in french from news site Mediapart'
     publication_type = 'newspaper'
