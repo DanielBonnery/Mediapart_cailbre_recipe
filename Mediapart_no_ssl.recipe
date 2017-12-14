@@ -43,6 +43,9 @@ class Mediapart(BasicNewsRecipe):
 
     use_embedded_content = False
     no_stylesheets = True
+    #----- this was copied from https://gist.github.com/jchirschy/7717cb067bee7e081070
+    index_url= u'https://static.mediapart.fr'
+    #----- end of this was copied from https://gist.github.com/jchirschy/7717cb067bee7e081070
 
     cover_url = 'https://static.mediapart.fr/files/M%20Philips/logo-mediapart.png'
 
@@ -63,8 +66,18 @@ class Mediapart(BasicNewsRecipe):
         return feeds
 
     def my_parse_index(self, la_une):
-        articles = []
+        
+#----- this was copied from https://gist.github.com/jchirschy/7717cb067bee7e081070
+        legacy_login_url = index_url + u'/l'  # We use this to cheat oAuth
+  #----- end of this was copied from https://gist.github.com/jchirschy/7717cb067bee7e081070
 
+        articles = []
+       
+      #----- this was copied from https://gist.github.com/jchirschy/7717cb067bee7e081070
+        ssl._create_default_https_context = ssl._create_unverified_context
+      #----- end of this was copied from https://gist.github.com/jchirschy/7717cb067bee7e081070
+
+       
         breves = []
         liens = []
         confidentiels = []
