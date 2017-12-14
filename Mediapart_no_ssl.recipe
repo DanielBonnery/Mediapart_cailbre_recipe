@@ -35,7 +35,7 @@ import ssl
 class Mediapart(BasicNewsRecipe):
     title = 'Mediapart sans ssl!!!'
     __author__ = 'Daniel Bonnery from a version by Mathieu Godlewski, Louis Gesbert'
-    description = 'Global news in french from news site Mediapart'
+    description = 'Global news in french from news site Mediapart without ssl'
     publication_type = 'newspaper'
     language = 'fr'
     needs_subscription = True
@@ -48,6 +48,10 @@ class Mediapart(BasicNewsRecipe):
     #----- end of this was copied from https://gist.github.com/jchirschy/7717cb067bee7e081070
 
     cover_url = 'https://static.mediapart.fr/files/M%20Philips/logo-mediapart.png'
+
+#----- this was copied from https://gist.github.com/jchirschy/7717cb067bee7e081070
+    legacy_login_url = index_url + u'/l'  # We use this to cheat oAuth
+  #----- end of this was copied from https://gist.github.com/jchirschy/7717cb067bee7e081070
 
 # --
 
@@ -67,10 +71,6 @@ class Mediapart(BasicNewsRecipe):
 
     def my_parse_index(self, la_une):
         
-#----- this was copied from https://gist.github.com/jchirschy/7717cb067bee7e081070
-        legacy_login_url = index_url + u'/l'  # We use this to cheat oAuth
-  #----- end of this was copied from https://gist.github.com/jchirschy/7717cb067bee7e081070
-
         articles = []
        
       #----- this was copied from https://gist.github.com/jchirschy/7717cb067bee7e081070
